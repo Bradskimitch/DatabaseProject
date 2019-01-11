@@ -1,32 +1,64 @@
 .App {
-  text-align: center;
+  /*text-align: center;*/
+  background-color: black;
 }
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
+.App-body{
+background-color: #282c34;
+width: 80%;
+margin-left: auto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: 15px;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.sideBar{
+  width: 20%;
+  margin-right: auto;
+  position: absolute;
+  align-items: right;
+}
+.loginBars{
+ padding: 10px;
+ width: 90%;
+  margin-right: auto;
+  margin-left: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menu{
+  margin-top: 20px;
+  margin-right: auto;
+  margin-left: auto;
+width: 90%;
+text-align: center;
+
+background-color: red;
+}
+
+#menuButton{
+  margin-top: 2px;
+  margin-bottom: 2px;
+  width: 90%;
+  border: none;
+background-color: white;
+color:black;
+border: 2px solid grey;
+  font-size: 2vh;
+  border-radius: 5px;
+  -webkit-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+}
+#menuButton:hover{
+  background-color: grey;
+  color:white;
+}
+
+table, th, td {
+  border: 1px solid black;
+  text-align: center;
+}
+#characteristic{
+  width: 12vw;
 }
