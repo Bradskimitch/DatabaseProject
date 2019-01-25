@@ -11,26 +11,64 @@ class ItemList extends Component {
 
     constructor() {
         super();
+        this.handler = this.handler.bind(this);
         this.state = {
             items: "Example",
         }
 
         this.update = () => {
             userInput = document.getElementById("userInput").value;
-
+            axios.get(`http://localhost:8080/SoloProject/rest/solo/item/json`)
+                .then(res => {
+                    const items = res.data;
+                    console.log(items);
+                    this.setState({ items });
+                })
         }
 
-    }
 
+
+    }
+    handler() {
+        this.update();
+    }
     componentDidMount() {
         axios.get(`http://localhost:8080/SoloProject/rest/solo/item/json`)
             .then(res => {
                 const items = res.data;
                 console.log(items);
+
                 this.setState({ items });
             })
     }
 
+
+
+    /*
+        @action add(data){
+            const existing = this.all;
+            this.all = existing.concat(data);
+        }
+    */
+    addItem = (e) => {
+        e.preventDefault();
+        axios.post(`http://localhost:8080/SoloProject/rest/solo/item/json`, {
+            equipmentName: this.refs.itemName.value,
+            equipmentType: this.refs.itemType.value,
+            equipmentRarity: this.refs.itemRarity.value,
+            equipmentAttunement: this.refs.itemAttunement.value,
+            equipmentDescription: this.refs.itemDescription.value
+        }).then(response => {
+            //console.log(response);
+            this.update();
+        })
+        this.refs.itemName.value = null;
+        this.refs.itemType.value = null;
+        this.refs.itemRarity.value = null;
+        this.refs.itemAttunement.value = null;
+        this.refs.itemDescription.value = null;
+
+    }
     render() {
         let elements = [];
         let objects = this.state.items;
@@ -39,6 +77,8 @@ class ItemList extends Component {
             //     if (this.state.items[i].equipmentName[key].indexOf(userInput) != -1) {
             elements.push(
                 <ListButton
+                    action={this.handler}
+                    Id={this.state.items[i].equipmentId}
                     Name={this.state.items[i].equipmentName}
                     Type={this.state.items[i].equipmentType}
                     Rarity={this.state.items[i].equipmentRarity + this.state.items[i].equipmentAttunement}
@@ -53,18 +93,20 @@ class ItemList extends Component {
                 <header>
                     <input id="userInput" type="text" placeholder="Enter Movie Name" onChange={this.update} />
                 </header>
-                {elements}
-                <table>
-                    <tr>
-                        <td><input id="itemName" type="text" placeholder="Enter Item Name"/></td>
-                        <td><input id="itemType" type="text" placeholder="Enter Item Type"/></td>
-                        <td><input id="itemRarity" type="text" placeholder="Enter Item Rarity"/></td>
-                        <td><input id="itemAttunement" type="text" placeholder="Enter Item Attunement Needs"/></td>
-                    </tr>
-                    <tr>
-                        <td colSpan='4'><input id="itemDescription" type="text" placeholder="Enter Item Description"/></td>
-                    </tr>
-                </table>
+                <div>
+                    <form className='itemForm' onSubmit={this.addItem}>
+                        <fieldset>
+                            <legend>New Item</legend>
+                            <input ref="itemName" type="text" placeholder="Enter Item Name" />
+                            <input ref="itemType" type="text" placeholder="Enter Item Type" />
+                            <input ref="itemRarity" type="text" placeholder="Enter Item Rarity" />
+                            <input ref="itemAttunement" type="text" placeholder="Enter Item Attunement Needs" />
+                            <input ref="itemDescription" type="text" placeholder="Enter Item Description" />
+                            <button type='submit'>Submit</button>
+                        </fieldset>
+                    </form>
+                    {elements}
+                </div>
             </div>
         );
     }
