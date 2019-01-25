@@ -4,9 +4,9 @@ import './App.css';
 class Characteristics extends Component {
     render() {
         return (
-            <table>
+            <table id='characteristsicsTable'>
                 <tr>
-                    <th colspan="6">Charicteristics</th>
+                    <th colSpan="6">Charicteristics</th>
                 </tr>
                 <tr>
 

@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
+import Ability from './Ability.js';
 
 class Abilities extends Component {
-    getAbility = () => {
-        console.log()
-    }
     render() {
-        let abilities=[];
-        if(this.state.abilitiesData){
-            for(let ability of this.state.abilitiesData){
-                abilities.push(<Abilities abilityName={abilityName} abilityText={abilityText}/>)
-            }
+        let abilities = this.props.abilityData;
+        let elements = [];
+        for (let i = 0; i < abilities.length; i++) {
+           elements.push(<div><Ability value={abilities[i]} /></div>);
         }
         return (
-            <div>
-                {this.props.abilityName}
-                {this.props.abilityText}
+            <div className="newSection">
+                 - Abilities - 
+                {elements}
             </div>
         );
     }
