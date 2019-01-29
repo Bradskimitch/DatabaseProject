@@ -1,3 +1,4 @@
+/*
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
@@ -7,43 +8,43 @@ let data;
 let userInput;
 
 class CreatureList extends Component {
-    constructor() {
+constructor() {
         super();
+        this.handler = this.handler.bind(this);
         this.state = {
-            creatures: "Example",
-        }
-        this.update = () => {
-            userInput = document.getElementById("userInput").value
-            //  console.log(userInput);
-            axios({
-                method: 'get',
-                url: `localhost:8080/SoloProject/rest/solo/creature/json`,
-                responseType: 'json'
-            })
-                .then(response => {
-                    if (response.data !== undefined) {
-                        this.setState({
-                        });
-                    }
-                    else {
-                        alert("No Such Creature Found")
-                    }
-                });
+            creatures: "Example"
         }
 
-}  
+        this.update = () => {
+            axios.get(`http://localhost:8080/SoloProject/rest/solo/creature/json`)
+                .then(res => {
+                    const creatures = res.data;
+                    console.log(creatures);
+                    this.setState({ creatures });
+                })
+        }
+    }
     render() {
         let elements = [];
-        for (let i = 0; i < 10; i++) {
-            elements.push(<li>{this.creatures[0].creatureName}</li>);
+        let objects = this.state.creatures;
+        for (let i = 0; i < this.state.creatures.length; i++) {
+            //   for (let key in this.state.items[i].equipmentName) {
+            //     if (this.state.items[i].equipmentName[key].indexOf(userInput) != -1) {
+            elements.push(
+               // <ListButton
+                 //   action={this.handler}
+                   // Id={this.state.creatures[i].equipmentId}
+                    //Name={this.state.items[i].equipmentName}
+             //       Type={this.state.items[i].equipmentType}
+            //        Rarity={this.state.items[i].equipmentRarity + this.state.items[i].equipmentAttunement}
+            ////        Description={this.state.items[i].equipmentDescription}
+           //     />
+           // );
+            //   }
+            // }
         }
-        return (
-            <table>
-                {elements}
-            </table>
-        );
-    }
+            
 }
 
 export default CreatureList;
-
+*/

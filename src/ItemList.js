@@ -17,32 +17,25 @@ class ItemList extends Component {
         }
 
         this.update = () => {
-            userInput = document.getElementById("userInput").value;
-            axios.get(`http://localhost:8080/SoloProject/rest/solo/item/json`)
+            axios.get('http://localhost:8080/SoloProject/rest/solo/item/json')
                 .then(res => {
                     const items = res.data;
-                    console.log(items);
                     this.setState({ items });
                 })
         }
-
-
-
     }
+
     handler() {
         this.update();
     }
+
     componentDidMount() {
-        axios.get(`http://localhost:8080/SoloProject/rest/solo/item/json`)
+        axios.get('http://localhost:8080/SoloProject/rest/solo/item/json')
             .then(res => {
                 const items = res.data;
-                console.log(items);
-
                 this.setState({ items });
             })
     }
-
-
 
     /*
         @action add(data){
@@ -59,15 +52,13 @@ class ItemList extends Component {
             equipmentAttunement: this.refs.itemAttunement.value,
             equipmentDescription: this.refs.itemDescription.value
         }).then(response => {
-            //console.log(response);
             this.update();
-        })
+        });
         this.refs.itemName.value = null;
         this.refs.itemType.value = null;
         this.refs.itemRarity.value = null;
         this.refs.itemAttunement.value = null;
         this.refs.itemDescription.value = null;
-
     }
     render() {
         let elements = [];
@@ -81,7 +72,8 @@ class ItemList extends Component {
                     Id={this.state.items[i].equipmentId}
                     Name={this.state.items[i].equipmentName}
                     Type={this.state.items[i].equipmentType}
-                    Rarity={this.state.items[i].equipmentRarity + this.state.items[i].equipmentAttunement}
+                    Rarity={this.state.items[i].equipmentRarity}
+                    Attunement={this.state.items[i].equipmentAttunement}
                     Description={this.state.items[i].equipmentDescription}
                 />
             );
@@ -91,7 +83,7 @@ class ItemList extends Component {
         return (
             <div>
                 <header>
-                    <input id="userInput" type="text" placeholder="Enter Movie Name" onChange={this.update} />
+                    <input ref="userInput" type="text" placeholder="Enter Movie Name" onChange={this.update} />
                 </header>
                 <div>
                     <form className='itemForm' onSubmit={this.addItem}>
@@ -101,8 +93,10 @@ class ItemList extends Component {
                             <input ref="itemType" type="text" placeholder="Enter Item Type" />
                             <input ref="itemRarity" type="text" placeholder="Enter Item Rarity" />
                             <input ref="itemAttunement" type="text" placeholder="Enter Item Attunement Needs" />
-                            <input ref="itemDescription" type="text" placeholder="Enter Item Description" />
                             <button type='submit'>Submit</button>
+                            <br />
+                            <input ref="itemDescription" type="text" placeholder="Enter Item Description" />
+
                         </fieldset>
                     </form>
                     {elements}
